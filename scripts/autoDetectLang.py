@@ -26,3 +26,7 @@ def detect_Language(sourceText): # Sentence level language detection, finds and 
     
     return highest_count_language
 
+if __name__ == "__main__":
+    ex_text = "This is English text. Er lebt mit seinen Eltern und seiner Schwester in Berlin. Yo me divierto todos los días en el parque. Je m'appelle Angélica Summer, j'ai 12 ans et je suis canadienne. Je m'appelle Angélica Summer, j'ai 12 ans et je suis canadienne"
+
+    print(detect_Language(ex_text))
