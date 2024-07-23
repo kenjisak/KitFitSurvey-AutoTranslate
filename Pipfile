@@ -5,6 +5,8 @@ name = "pypi"
 
 [packages]
 spacy-language-detection = "*"
+pandas = "*"
+openpyxl = "*"
 
 [dev-packages]
 
