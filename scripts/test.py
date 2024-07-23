@@ -21,3 +21,9 @@ translator = deepl.Translator(auth_key)
 
 result = translator.translate_text("Je porte ma veste tous les jours et c'est très désagréable.", target_lang="EN-GB")
 print(result.text) 
+
+# TODO add spaCY to detect language before sending API request to help with rate limiting
+# might not need to implement exponential back off
+# make another excel sheet and cut french cells into new one
+# send one translation request uploading the whole excel file
+# then add back the translated version into
