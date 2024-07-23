@@ -11,7 +11,7 @@ df = pandas.read_excel(input_file_path, sheet_name = sheet_name)
 
 primary_language = "en" # used from spaCy docs for languages listed
 target_language = "EN-GB" # used from DeepL docs for languages listed
-
+expected_secondary_language = "fr"
 # init DeepL Translator
 auth_key = ""
 with open('../data/api_key.json', 'r') as file:
@@ -36,23 +36,28 @@ def translate_excel_sheet():
 
                 # translation operation
                 translated_text = translate_to_english(original_text)
-                if translated_text:
+                if not translated_text == None and not original_text == translated_text:
                     df.at[index, col] = translated_text
                     print(f"Translated Text at ({index}, {col}): \n\tOriginal: {original_text} \n\tTranslated: {translated_text}")
-                else:
-                    print(f"\nNon Translated Original Text at ({index}, {col}): \n\t{original_text}")
-        break # TODO remove after testing 1 row
+                # else:
+                #     print(f"\nNon Translated Original Text at ({index}, {col}): \n\t{original_text}")
 
 
     # Save the modified DataFrame back to an Excel file
     df.to_excel(output_file_path, sheet_name = sheet_name, index=False)
 
 def translate_to_english(sourceText):
-    if not detect_Language(sourceText) == primary_language: # if any other language than person spoken language then make DeepL API translation request
+    langdetected = detect_Language(sourceText)
 
+    if langdetected == expected_secondary_language: # if any other language than person spoken language then make DeepL API translation request
+        print(langdetected)
         result = translator.translate_text(sourceText, target_lang = target_language)
         
         return result.text
+    else: return None
+
 
 if __name__ == "__main__":
     translate_excel_sheet()
+
+# TODO possibly use a different language detection library for better results
