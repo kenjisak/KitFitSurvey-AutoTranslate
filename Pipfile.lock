@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "2a8bb54b97e329517b58a534f2d0389136af2dc0e3c796702273a8aa2c9eb1fa"
+            "sha256": "21c7bf60d15fac3ecfe9ea89382a0232b879405fc80420d6ee6305e2708dfb12"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -244,6 +244,15 @@
                 "sha256:ecd12e3bacf3eed5486e4cd8ede3c12da66ee0e0a9d0ae046962bc2bb503acef"
             ],
             "version": "==2.0.8"
+        },
+        "deepl": {
+            "hashes": [
+                "sha256:2afe9adc459f5c591282e4d74570a0dc5041554d54dd687f72d3b0b77936e9ce",
+                "sha256:5ae41763939441edbca7640fd344280cbee47d490641ce35206910a8b01e778e"
+            ],
+            "index": "pypi",
+            "markers": "python_version < '4' and python_full_version >= '3.6.2'",
+            "version": "==1.18.0"
         },
         "et-xmlfile": {
             "hashes": [
