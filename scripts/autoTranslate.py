@@ -12,9 +12,17 @@ nlp_model = spacy.load("en_core_web_sm")
 Language.factory("language_detector", func=get_lang_detector)
 nlp_model.add_pipe('language_detector', last=True)
 
+def detect_Language(sourceText): # Sentence level language detection, finds and returns the majority of language detected in the source text
+    
+    languages_detected = {}  # Use a dictionary to store language: count pairs
+    
+    doc = nlp_model(sourceText)
+    for i, sent in enumerate(doc.sents):
+        lang = sent._.language['language']  # Assuming 'language' key exists in the language detection result
+        languages_detected[lang] = languages_detected.get(lang, 0) + 1  # Increment language count
 
-# Sentence level language detection
-text = "This is English text. Er lebt mit seinen Eltern und seiner Schwester in Berlin. Yo me divierto todos los días en el parque. Je m'appelle Angélica Summer, j'ai 12 ans et je suis canadienne."
-doc = nlp_model(text)
-for i, sent in enumerate(doc.sents):
-    print(sent, sent._.language)
+    # Find the language with the highest count
+    highest_count_language = max(languages_detected, key=languages_detected.get)
+    
+    return highest_count_language
+
