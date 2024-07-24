@@ -1,11 +1,10 @@
 import spacy
 from spacy.language import Language
-
 from spacy_language_detection import LanguageDetector
 
 
 def get_lang_detector(nlp, name):
-    return LanguageDetector(seed=42)  # We use the seed 42
+    return LanguageDetector(seed=0)
 
 
 nlp_model = spacy.load("en_core_web_sm")

@@ -19,12 +19,6 @@ with open('../data/api_key.json', 'r') as file:
 
 translator = deepl.Translator(auth_key)
 
-# TODO add spaCY to detect language before sending API request to help with rate limiting
-# might not need to implement exponential back off
-# make another excel sheet and cut french cells into new one
-# send one translation request uploading the whole excel file
-# then add back the translated version into
-
 def translate_excel_sheet():
 
     # Iterate over each cell in the DataFrame
@@ -33,6 +27,11 @@ def translate_excel_sheet():
             # Check if the cell contains a text value (string)
             if isinstance(row[col], str):
                 original_text = row[col]
+
+                # detected = detect_Language(original_text) # DEBUGGING
+                # if not detected == primary_language:
+                #     print(detected)
+                #     print(f"\nNon Translated Original Text at ({index}, {col}): \n\t{original_text}")
 
                 # translation operation
                 translated_text = translate_to_english(original_text)
