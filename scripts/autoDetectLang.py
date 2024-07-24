@@ -12,8 +12,11 @@ nlp_model = spacy.load("en_core_web_sm")
 Language.factory("language_detector", func=get_lang_detector)
 nlp_model.add_pipe('language_detector', last=True)
 
-def detect_Language(sourceText): # Sentence level language detection, finds and returns the majority of language detected in the source text
-    
+def detect_Language(sourceText): # Document level language detection, finds and returns the majority of language detected in the source text depending on word count
+    doc = nlp_model(sourceText)
+    return doc._.language['language']
+
+def detect_Language_by_sentence_count(sourceText): # Sentence level language detection, finds and returns the majority of language detected in the source text depending on sentence count
     languages_detected = {}  # Use a dictionary to store language: count pairs
     
     doc = nlp_model(sourceText)
