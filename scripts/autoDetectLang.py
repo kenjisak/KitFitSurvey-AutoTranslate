@@ -2,6 +2,9 @@ import spacy
 from spacy.language import Language
 from spacy_language_detection import LanguageDetector
 
+import nltk
+from nltk.corpus import words
+from nltk.stem import WordNetLemmatizer
 
 def get_lang_detector(nlp, name):
     return LanguageDetector(seed=0)
@@ -28,7 +31,21 @@ def detect_Language_by_sentence_count(sourceText): # Sentence level language det
     
     return highest_count_language
 
+nltk.download('words') # Ensure you have the necessary NLTK data
+nltk.download('punkt')
+nltk.download('wordnet')
+english_words = set(words.words()) # List of English words
+lemmatizer = WordNetLemmatizer()
+
+def is_majority_english(paragraph, threshold=0.5):
+    tokens = nltk.word_tokenize(paragraph)
+    lemmatized_tokens = [lemmatizer.lemmatize(word.lower()) for word in tokens]
+    english_word_count = sum(1 for word in lemmatized_tokens if word in english_words)
+    proportion_english = english_word_count / len(tokens)
+    return proportion_english > threshold
+
 if __name__ == "__main__":
     ex_text = "This is English text. Er lebt mit seinen Eltern und seiner Schwester in Berlin. Yo me divierto todos los días en el parque. Je m'appelle Angélica Summer, j'ai 12 ans et je suis canadienne. Je m'appelle Angélica Summer, j'ai 12 ans et je suis canadienne"
 
     print(detect_Language(ex_text))
+    print(is_majority_english(ex_text))
